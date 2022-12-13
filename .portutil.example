@@ -1,0 +1,6 @@
+# Email of the ports Maintainer.
+maintainer = "email@example.org"
+
+# Path to directory containing a working
+# copy of the FreeBSD ports tree.
+base = "/path/to/port"

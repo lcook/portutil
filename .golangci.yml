@@ -1,0 +1,40 @@
+run:
+  go: '1.19'
+  tests: false
+
+issues:
+  include:
+    - EXC0001
+    - EXC0005
+    - EXC0011
+    - EXC0012
+    - EXC0013
+
+  max-issues-per-linter: 0
+  max-same-issues: 0
+
+linters:
+  enable:
+    - bodyclose
+    - dupl
+    - exportloopref
+    - goconst
+    - godot
+    - godox
+    - goimports
+    - gosimple
+    - goprintffuncname
+    - varnamelen
+    - gosec
+    - ifshort
+    - misspell
+    - prealloc
+    - rowserrcheck
+    - varcheck
+    - sqlclosecheck
+    - unconvert
+    - unparam
+    - unused
+    - whitespace
+    - wsl 
+    - nolintlint
