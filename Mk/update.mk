@@ -9,7 +9,7 @@
 
 _TYPES=				CARGO:cargo-crates-merge GO:gomod-vendor
 .  for tuple in ${_TYPES}
-_MAKE_${tuple:C/(.#):(.*)/\1/}=	${_MAKE_CMD} ${tuple:C/(.*):(.*)/\2/}
+_MAKE_${tuple:C/(.*):(.*)/\1/}=	${_MAKE_CMD} ${tuple:C/(.*):(.*)/\2/}
 .  endfor
 
 _PORTEDIT=	/usr/local/bin/portedit
@@ -20,7 +20,7 @@ default:
 	${_PORTEDIT} set-version -i ${PACKAGE_LATEST} ${PACKAGE_DIR}/Makefile
 	${_MAKE_CMD} makesum
 .  if ${PACKAGE_TYPE} != ""
-.    for tuple in ${_TYPES:C/(.#):(.*)/\1/}
+.    for tuple in ${_TYPES:C/(.*):(.*)/\1/}
 .      if ${PACKAGE_TYPE} == ${tuple}
 	${_MAKE_${tuple}}
 .        if ${tuple} == GO
