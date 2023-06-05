@@ -5,7 +5,7 @@ go 1.20
 require (
 	github.com/mmcdole/gofeed v1.2.1
 	github.com/muesli/termenv v0.15.1
-	github.com/sirupsen/logrus v1.9.2
+	github.com/sirupsen/logrus v1.9.3
 	github.com/spf13/cobra v1.7.0
 	github.com/spf13/viper v1.15.0
 )
