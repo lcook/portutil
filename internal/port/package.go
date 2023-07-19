@@ -13,6 +13,9 @@ const (
 	PackageDefault int = iota
 	PackageCargo
 	PackageGo
+
+	PackageOld string = "#F3713D"
+	PackageNew string = "#6EB77F"
 )
 
 type Package struct {
@@ -47,9 +50,9 @@ func (p *Package) IsLatest() bool {
 func (p *Package) Summary() {
 	fmt.Printf("[%s] %20s: %s -> %s\n", p.TypeString()[0:1], p.Origin,
 		termenv.String(p.Version).
-			Foreground(termenv.ColorProfile().Color("#F3713D")),
+			Foreground(termenv.EnvColorProfile().Color(PackageOld)),
 		termenv.String(p.Latest).
-			Foreground(termenv.ColorProfile().Color("#6EB77F")),
+			Foreground(termenv.EnvColorProfile().Color(PackageNew)),
 	)
 }
 
