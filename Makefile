@@ -4,35 +4,35 @@
 # Copyright (c) Lewis Cook <lcook@FreeBSD.org>
 # All rights reserved.
 #
+.POSIX:
 PROG=		portutil
 VERSION=	0.1
 
-.if exists(${.CURDIR}/.git)
+LOCALBASE?=	/usr/local
+BINDIR=		${LOCALBASE}/bin
+SHAREDIR=	${LOCALBASE}/share/${PROG}
+
 HASH!=		git rev-parse --short HEAD
 BRANCH!=	git symbolic-ref HEAD | sed 's,refs/heads/,,'
 VERSION:=	${BRANCH}/${VERSION}-${HASH}
-.endif
 
-GO_MODULE=	github.com/lcook/portutil
+GO_MODULE=	github.com/lcook/${PROG}
 GO_FLAGS=	-v -ldflags "-s -w -X '${GO_MODULE}/cmd.version=${VERSION}'"
 
-LOCALBASE?=	/usr/local
-SHARE=		${LOCALBASE}/share/${PROG}
-
-default: build .PHONY
-
-build: .PHONY
+all: build
+build:
 	go build ${GO_FLAGS} -o ${PROG}
-clean: .PHONY
-	go clean -x
-install: build .PHONY
-	mkdir -p ${SHARE}/Mk
-	cp -vR Mk/ ${SHARE}/Mk
-	cp -v ${PROG} ${LOCALBASE}/bin
-deinstall: .PHONY
-	rm -rfv ${SHARE}
-	rm -fv ${LOCALBASE}/bin/${PROG}
-format: .PHONY
+format:
 	find . -type f -name '#.go' -exec gofmt -w {} +
-lint: .PHONY
+lint:
 	golangci-lint run
+clean:
+	go clean -x
+install:
+	mkdir -p ${SHAREDIR}/Mk
+	cp -vR Mk/ ${SHAREDIR}/Mk
+	cp -v ${PROG} ${BINDIR}
+deinstall:
+	rm -rfv ${SHAREDIR}
+	rm -fv ${LOCALBASE}/bin/${PROG}
+.PHONY: all build format lint clean install deinstall
